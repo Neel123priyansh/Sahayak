@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Warm Educational Theme Color Tokens */
+  --color-primary: #F5F1EB;
+  --color-secondary: #FFFFFF;
+  --color-tertiary: #F9F7F4;
+  --color-surface: #FEFDFB;
+  --color-card: #FFFFFF;
+  
+  /* Brown Accent Colors */
+  --color-accent-brown: #8B4513;
+  --color-accent-dark-brown: #654321;
+  --color-accent-light-brown: #A0522D;
+  --color-accent-orange: #FF6B35;
+  --color-accent-red: #E74C3C;
+  --color-accent-green: #27AE60;
+  --color-accent-blue: #3498DB;
+  --color-accent-purple: #9B59B6;
+  --color-accent-yellow: #F1C40F;
+  
+  /* Progress Colors */
+  --color-progress-done: #27AE60;
+  --color-progress-failed: #E74C3C;
+  --color-progress-in-progress: #3498DB;
+  --color-progress-missed: #95A5A6;
+  --color-progress-procrastination: #E74C3C;
+  --color-progress-activity: #27AE60;
+  --color-progress-studying: #FF6B35;
+  
+  /* Text Colors */
+  --color-text-primary: #2C3E50;
+  --color-text-secondary: #7F8C8D;
+  --color-text-tertiary: #BDC3C7;
+  --color-text-accent: #8B4513;
+  
+  /* Glass Effect Variables */
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(139, 69, 19, 0.1);
+  --glass-shadow: 0 8px 32px rgba(139, 69, 19, 0.1);
+  
+  /* Warm Card Gradients */
+  --gradient-warm-card: linear-gradient(135deg, #FFFFFF 0%, #F9F7F4 100%);
+  --gradient-warm-surface: linear-gradient(135deg, #FEFDFB 0%, #F5F1EB 100%);
+  --gradient-accent-brown: linear-gradient(135deg, #8B4513 0%, #654321 100%);
+  --gradient-accent-orange: linear-gradient(135deg, #FF6B35 0%, #E74C3C 100%);
+  --gradient-accent-green: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%);
+  --gradient-accent-blue: linear-gradient(135deg, #3498DB 0%, #2980B9 100%);
+}
+
+/* Warm Educational Theme Base Styles */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--color-primary);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+/* Warm Theme Card Classes */
+.warm-card {
+  background: var(--gradient-warm-card);
+  border: 1px solid rgba(139, 69, 19, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--glass-shadow);
+  border-radius: 24px;
+  padding: 2rem;
+  margin: 1rem;
+}
+
+.warm-surface {
+  background: var(--gradient-warm-surface);
+  border: 1px solid rgba(139, 69, 19, 0.05);
+  border-radius: 20px;
+}
+
+.glass-warm {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--glass-shadow);
+  border-radius: 20px;
+}
+
+/* Gradient Card Classes */
+.card-gradient-brown {
+  background: var(--gradient-accent-brown);
+  box-shadow: 0 8px 32px rgba(139, 69, 19, 0.3);
+  color: white;
+}
+
+.card-gradient-orange {
+  background: var(--gradient-accent-orange);
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
+  color: white;
+}
+
+.card-gradient-green {
+  background: var(--gradient-accent-green);
+  box-shadow: 0 8px 32px rgba(39, 174, 96, 0.3);
+  color: white;
+}
+
+.card-gradient-dark-green {
+  background: var(--gradient-accent-green);
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
+}
+
+/* Circular Progress Ring */
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring-circle {
+  transition: stroke-dashoffset 0.8s ease-in-out;
+  stroke-linecap: round;
+}
+
+/* Activity Progress Colors */
+.progress-done { stroke: var(--color-progress-done); }
+.progress-failed { stroke: var(--color-progress-failed); }
+.progress-in-progress { stroke: var(--color-progress-in-progress); }
+.progress-missed { stroke: var(--color-progress-missed); }
+.progress-procrastination { stroke: var(--color-progress-procrastination); }
+.progress-activity { stroke: var(--color-progress-activity); }
+.progress-studying { stroke: var(--color-progress-studying); }
+
+/* Enhanced Animations */
+@keyframes float-dark {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(79, 156, 249, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(79, 156, 249, 0.5); }
+}
+
+@keyframes slide-up-dark {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce-in-dark {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% { transform: scale(0.9); }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shine-dark {
+  0% { transform: translateX(-100%) skewX(-12deg); }
+  100% { transform: translateX(200%) skewX(-12deg); }
+}
+
+@keyframes progress-fill {
+  0% { stroke-dashoffset: 283; }
+  100% { stroke-dashoffset: var(--progress-offset, 283); }
+}
+
+/* Animation Classes */
+.animate-float-dark { animation: float-dark 6s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-slide-up-dark { animation: slide-up-dark 0.6s ease-out; }
+.animate-bounce-in-dark { animation: bounce-in-dark 0.8s ease-out; }
+.animate-shine-dark { animation: shine-dark 2s ease-in-out; }
+.animate-progress-fill { animation: progress-fill 1.5s ease-out forwards; }
+
+/* Hover Effects */
+.hover-lift-dark {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift-dark:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Modern Button Styles */
+.btn-dark-primary {
+  background: var(--gradient-accent-blue);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 12px 24px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(79, 156, 249, 0.3);
+}
+
+.btn-dark-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(79, 156, 249, 0.4);
+}
+
+.btn-dark-secondary {
+  background: var(--color-dark-card);
+  color: var(--color-text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 12px 24px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-dark-secondary:hover {
+  background: var(--color-dark-tertiary);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Progress Indicator Styles */
+.progress-indicator {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-text {
+  position: absolute;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-text-primary);
+}
+
+/* Timesheet Styles */
+.timesheet-card {
+  background: var(--color-dark-card);
+  border-radius: 24px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.activity-ring {
+  width: 120px;
+  height: 120px;
+}
+
+/* Roadmap Styles */
+.roadmap-item {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+
+.roadmap-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Status Indicators */
+.status-done { background: var(--color-progress-done); }
+.status-in-progress { background: var(--color-progress-in-progress); }
+.status-review { background: var(--color-accent-orange); }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-dark-tertiary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a4a4a;
+}
