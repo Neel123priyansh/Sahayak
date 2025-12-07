@@ -86,6 +86,9 @@ typings/
 # Expo
 .expo/
 dist/
+
+# Media (keep large binary out of repo)
+sahayak-mobile/assets/*.mp4
 web-build/
 
 # macOS

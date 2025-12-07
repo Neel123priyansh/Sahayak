@@ -82,24 +82,24 @@ const AIChat = ({ isOpen, onClose }) => {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div className="w-full max-w-2xl h-[80vh] bg-surface-900/95 backdrop-blur-xl rounded-3xl border border-primary-500/20 shadow-2xl flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+      <div className="w-full max-w-2xl h-[80vh] surface-card rounded-3xl border border-black/10 dark:border-white/20 ios-shadow flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-primary-500/20 bg-gradient-to-r from-primary-600/10 to-secondary-600/10">
+        <div className="flex items-center justify-between p-6 border-b border-black/10 dark:border-white/10 bg-white/40 dark:bg-[#1C1C1E]/40 backdrop-blur-xl">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-primary-500/20 rounded-xl">
+            <div className="p-2 bg-primary-500/15 rounded-xl">
               <Bot className="w-6 h-6 text-primary-400" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-white">AI Teaching Assistant</h3>
-              <p className="text-sm text-surface-300">Powered by Sahayak AI</p>
+              <h3 className="text-lg font-semibold">AI Teaching Assistant</h3>
+              <p className="text-sm opacity-70">Powered by Sahayak AI</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-surface-700/50 rounded-xl transition-colors"
+            className="p-2 rounded-xl transition-colors ios-button"
           >
-            <X className="w-5 h-5 text-surface-400" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
@@ -120,11 +120,11 @@ const AIChat = ({ isOpen, onClose }) => {
                 </div>
                 <div className={`p-4 rounded-2xl ${
                   message.type === 'user' 
-                    ? 'bg-primary-500/20 text-white' 
-                    : 'bg-surface-800/50 text-surface-100'
+                    ? 'bg-primary-500/15' 
+                    : 'bg-white/40 dark:bg-[#1C1C1E]/40 backdrop-blur-xl'
                 }`}>
                   <p className="text-sm leading-relaxed">{message.content}</p>
-                  <p className="text-xs text-surface-400 mt-2">
+                  <p className="text-xs opacity-60 mt-2">
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
@@ -152,7 +152,7 @@ const AIChat = ({ isOpen, onClose }) => {
         </div>
 
         {/* Input */}
-        <div className="p-6 border-t border-primary-500/20 bg-surface-900/50">
+        <div className="p-6 border-t border-black/10 dark:border-white/10 bg-white/30 dark:bg-[#1C1C1E]/30 backdrop-blur-xl">
           <div className="flex items-end space-x-3">
             <div className="flex-1 relative">
               <textarea
@@ -160,7 +160,7 @@ const AIChat = ({ isOpen, onClose }) => {
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask me about lesson plans, teaching strategies, assessments..."
-                className="w-full p-4 pr-12 bg-surface-800/50 border border-surface-600 rounded-2xl text-white placeholder-surface-400 resize-none focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/50 transition-all"
+                className="w-full p-4 pr-12 bg-white/50 dark:bg-[#1C1C1E]/50 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500/40 transition-all"
                 rows="1"
                 style={{ minHeight: '56px', maxHeight: '120px' }}
               />
@@ -169,7 +169,7 @@ const AIChat = ({ isOpen, onClose }) => {
             <button
               onClick={handleSendMessage}
               disabled={!inputMessage.trim() || isTyping}
-              className="p-4 bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl transition-all duration-200 shadow-lg hover:shadow-xl"
+              className="p-4 bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl transition-all duration-200 ios-shadow ios-button"
             >
               <Send className="w-5 h-5 text-white" />
             </button>

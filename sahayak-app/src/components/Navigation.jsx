@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Home, BookOpen, BarChart3, User, Settings } from 'lucide-react'
 
-const Navigation = ({ activeTab, setActiveTab }) => {
+const Navigation = ({ activeTab: propActiveTab, setActiveTab }) => {
+  const [activeTab, setLocalActiveTab] = useState(propActiveTab || 'home')
   const navItems = [
     { id: 'home', icon: Home, label: 'Home' },
     { id: 'stories', icon: BookOpen, label: 'Stories' },
@@ -12,29 +13,31 @@ const Navigation = ({ activeTab, setActiveTab }) => {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50">
-      {/* Glassmorphism background */}
-      <div className="card-glass border-t border-surface-600/30 backdrop-blur-xl">
+      {/* iOS frosted background */}
+      <div className="surface-card border-t backdrop-blur-xl">
         <div className="flex items-center justify-around px-4 py-3">
           {navItems.map((item, index) => {
             const isActive = activeTab === item.id
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => {
+                  setLocalActiveTab(item.id)
+                  setActiveTab?.(item.id)
+                }}
                 className={`
                   relative flex flex-col items-center gap-1 px-3 py-2 rounded-material
-                  transition-all duration-300 group animate-scale-in
+                  transition-all duration-300 group
                   ${isActive 
-                    ? 'text-primary-400 scale-110' 
-                    : 'text-surface-400 hover:text-surface-200 hover:scale-105'
+                    ? 'text-primary-400' 
+                    : 'text-surface-400 hover:text-surface-200'
                   }
                 `}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                {/* Active indicator background */}
+                {/* Active indicator background (subtle) */}
                 {isActive && (
-                  <div className="absolute inset-0 bg-primary-500/20 rounded-material 
-                                elevation-1 animate-pulse" />
+                  <div className="absolute inset-0 bg-primary-500/10 rounded-material" />
                 )}
                 
                 {/* Icon container with neumorphism */}
@@ -42,14 +45,14 @@ const Navigation = ({ activeTab, setActiveTab }) => {
                   relative w-8 h-8 flex items-center justify-center rounded-material
                   transition-all duration-300
                   ${isActive 
-                    ? 'elevation-inset text-primary-400' 
-                    : 'group-hover:elevation-1'
+                    ? 'text-primary-400 ios-shadow' 
+                    : 'group-hover:ios-shadow'
                   }
                 `}>
                   <item.icon 
                     size={20} 
                     className={`transition-all duration-300 ${
-                      isActive ? 'drop-shadow-glow-primary' : ''
+                      isActive ? '' : ''
                     }`}
                   />
                 </div>
@@ -62,10 +65,9 @@ const Navigation = ({ activeTab, setActiveTab }) => {
                   {item.label}
                 </span>
                 
-                {/* Active indicator dot */}
+                {/* Active indicator dot (subtle) */}
                 {isActive && (
-                  <div className="absolute -top-1 w-1 h-1 bg-primary-400 rounded-full
-                                animate-pulse shadow-glow-primary" />
+                  <div className="absolute -top-1 w-1 h-1 bg-primary-400 rounded-full" />
                 )}
                 
                 {/* Ripple effect on tap */}

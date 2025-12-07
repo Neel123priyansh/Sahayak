@@ -18,6 +18,25 @@ const AnimatedBackground = ({ children, variant = 'default' }) => {
 
   const getBackgroundStyle = () => {
     switch (variant) {
+      case 'warm': {
+        const themeAttr = document.documentElement.getAttribute('data-theme')
+        const isDark = themeAttr === 'dark'
+        return {
+          background: `
+            radial-gradient(120% 120% at ${mousePosition.x}% ${mousePosition.y}%, 
+              rgba(255, 177, 66, 0.10) 0%, 
+              rgba(255, 177, 66, 0.04) 35%, 
+              transparent 70%),
+            radial-gradient(80% 80% at 20% 90%, 
+              rgba(255, 105, 97, 0.08) 0%, 
+              rgba(255, 105, 97, 0.03) 40%, 
+              transparent 70%),
+            linear-gradient(135deg, 
+              ${isDark ? '#121214 0%, #18181c 45%, #0e0e12 100%' : '#fff5eb 0%, #fff0e6 45%, #fff5eb 100%'}
+            )
+          `
+        }
+      }
       case 'neo':
         return {
           background: `

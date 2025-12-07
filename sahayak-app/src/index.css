@@ -49,20 +49,48 @@
   --gradient-accent-orange: linear-gradient(135deg, #FF6B35 0%, #E74C3C 100%);
   --gradient-accent-green: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%);
   --gradient-accent-blue: linear-gradient(135deg, #3498DB 0%, #2980B9 100%);
+
+  /* iOS-style Neutral Tokens */
+  --ios-bg-light-0: #F8FAFC;
+  --ios-bg-light-1: #EEF2F7;
+  --ios-bg-dark-0: #0B0B0C;
+  --ios-bg-dark-1: #111214;
+  --ios-surface-light: #FFFFFF;
+  --ios-surface-dark: #1C1C1E;
+  --ios-text-light: #111111;
+  --ios-text-dark: #FFFFFF;
+  --ios-muted-light: #6B7280;
+  --ios-muted-dark: #A1A1AA;
+  --ios-accent-light: #007AFF;
+  --ios-accent-dark: #0A84FF;
+  --ios-shadow-light: 0 8px 30px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.06);
+  --ios-shadow-dark: 0 12px 40px rgba(0,0,0,0.35);
+  --ios-transition: color 180ms ease, background-color 220ms ease, box-shadow 220ms ease, transform 180ms ease;
 }
 
 /* Warm Educational Theme Base Styles */
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--color-primary);
-  color: var(--color-text-primary);
-  line-height: 1.6;
-  padding: 2rem;
+  background: linear-gradient(180deg, var(--ios-bg-light-0) 0%, var(--ios-bg-light-1) 100%);
+  color: var(--ios-text-light);
+  line-height: 1.45;
+  padding: 0;
+  margin: 0;
   min-height: 100vh;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(180deg, var(--ios-bg-dark-0) 0%, var(--ios-bg-dark-1) 100%);
+    color: var(--ios-text-dark);
+  }
+}
+
+html[data-theme="dark"] body {
+  background: linear-gradient(180deg, var(--ios-bg-dark-0) 0%, var(--ios-bg-dark-1) 100%);
+  color: var(--ios-text-dark);
 }
 
 /* Warm Theme Card Classes */
@@ -89,6 +117,58 @@ body {
   box-shadow: var(--glass-shadow);
   border-radius: 20px;
 }
+
+/* iOS-style Surfaces and Effects */
+.surface-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-radius: 16px;
+  box-shadow: var(--ios-shadow-light);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  .surface-card {
+    background: rgba(28, 28, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: var(--ios-shadow-dark);
+  }
+}
+
+html[data-theme="dark"] .surface-card {
+  background: rgba(28, 28, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: var(--ios-shadow-dark);
+}
+
+.ios-shadow {
+  box-shadow: var(--ios-shadow-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  .ios-shadow {
+    box-shadow: var(--ios-shadow-dark);
+  }
+}
+
+.ios-button {
+  transition: var(--ios-transition);
+}
+
+.ios-button:hover {
+  transform: translateY(-1px);
+}
+
+.ios-button:active {
+  transform: translateY(1px);
+}
+
+.z-base { z-index: 0; }
+.z-media { z-index: 1; }
+.z-decor { z-index: 2; }
+.z-controls { z-index: 10; }
+.z-modal { z-index: 1000; }
+.z-toast { z-index: 1100; }
 
 /* Gradient Card Classes */
 .card-gradient-brown {
