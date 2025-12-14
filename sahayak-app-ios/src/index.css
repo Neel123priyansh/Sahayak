@@ -110,6 +110,51 @@ html[data-theme="dark"] .surface-card {
 .z-modal { z-index: 1000; }
 .z-toast { z-index: 1100; }
 
+/* Splash logo animation */
+@keyframes splashFadeIn { 0% { opacity: 0 } 100% { opacity: 1 } }
+@keyframes splashPulse {
+  0% { transform: scale(1); }
+  33% { transform: scale(1.05); }
+  66% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+@keyframes splashFadeOut { 0% { opacity: 1 } 100% { opacity: 0 } }
+
+.splash-logo {
+  width: 180px;
+  height: 180px;
+  border-radius: 28px;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(255,176,106,0.9), rgba(255,111,92,0.85)) padding-box,
+              linear-gradient(120deg, #FFF9ED, #FFD1A1) border-box;
+  border: 3px solid transparent;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35), inset 0 6px 18px rgba(255,255,255,0.35);
+  animation: splashFadeIn 300ms ease-out, splashPulse 1500ms ease-in-out 300ms, splashFadeOut 300ms ease-in 2000ms;
+}
+
+.splash-logo-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 16px;
+  object-fit: contain;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  filter: drop-shadow(0 18px 40px rgba(0,0,0,0.35));
+  animation: splashFadeIn 300ms ease-out, splashPulse 1500ms ease-in-out 300ms, splashFadeOut 300ms ease-in 2000ms;
+}
+
+/* Bright radial backlight behind splash image */
+.splash-backlight {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255, 238, 205, 0.95), rgba(255, 216, 160, 0.55), rgba(255, 184, 120, 0.25), transparent 70%);
+  filter: blur(18px) saturate(1.05);
+  animation: splashFadeIn 300ms ease-out, splashPulse 1500ms ease-in-out 300ms, splashFadeOut 300ms ease-in 2000ms;
+}
+
 /* App wrapper gradient class to ensure visibility behind content */
 .app-bg {
   /* Make wrapper transparent so video is visible everywhere */
