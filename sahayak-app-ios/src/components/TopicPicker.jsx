@@ -20,7 +20,7 @@ export default function TopicPicker({ open, onClose, onSelect }) {
             <button
               key={t}
               onClick={() => { onSelect?.(t); onClose?.() }}
-              className="px-3 py-2 rounded-xl bg-white/70 dark:bg-[#1C1C1E]/70 backdrop-blur-xl border border-black/10 dark:border-white/10"
+              className="px-3 py-2 rounded-xl pill ios-button bg-white/90 dark:bg-[#1C1C1E]/80 hover:bg-black/5 dark:hover:bg-white/10"
             >
               {t}
             </button>
@@ -30,4 +30,3 @@ export default function TopicPicker({ open, onClose, onSelect }) {
     </div>
   )
 }
-

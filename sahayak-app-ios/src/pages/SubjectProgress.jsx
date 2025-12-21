@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, CheckCircle2, Clock, Circle, BookOpen } from 'lucide-react'
 import ProgressBar from '../components/ProgressBar'
 
 const SUBJECT_UNITS = {
@@ -75,40 +75,95 @@ export default function SubjectProgress() {
   }, [units])
 
   return (
-    <div className="p-4 space-y-4">
-      <header className="surface-card ios-shadow px-4 py-3 rounded-2xl flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <button className="p-2 rounded-xl bg-white/60 dark:bg-[#1C1C1E]/60 backdrop-blur-xl ios-shadow" onClick={() => navigate(-1)}>
-            <ChevronLeft size={18} />
+    <div className="max-w-5xl mx-auto p-4 lg:p-8 space-y-6 font-sans text-[#1E1E24] dark:text-white">
+      {/* Header */}
+      <div className="bento-card p-6 flex items-center justify-between dark:bg-[#1E1E24] dark:border dark:border-white/10">
+        <div className="flex items-center gap-4">
+          <button 
+            onClick={() => navigate(-1)}
+            className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors dark:bg-white/10 dark:hover:bg-white/20"
+          >
+            <ChevronLeft size={20} className="text-[#1E1E24] dark:text-white" />
           </button>
           <div>
-            <h1 className="text-lg font-semibold">{subject} Progress</h1>
-            <p className="text-sm opacity-70">Units, lessons, and statuses for this subject.</p>
+            <h1 className="text-2xl font-bold text-[#1E1E24] dark:text-white">{subject} Progress</h1>
+            <p className="text-[#8E8E93] text-sm">Detailed breakdown of your learning journey</p>
           </div>
         </div>
-        <div className="text-xs opacity-70">Completed {totals.done} • Ongoing {totals.ongoing} • Left {totals.left}</div>
-      </header>
+        
+        <div className="hidden sm:flex items-center gap-4 bg-gray-50 px-4 py-2 rounded-xl border border-gray-100 dark:bg-white/5 dark:border-white/10">
+          <div className="flex items-center gap-2 text-xs font-medium dark:text-white">
+            <div className="w-2 h-2 rounded-full bg-green-500" />
+            <span>{totals.done} Done</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs font-medium dark:text-white">
+            <div className="w-2 h-2 rounded-full bg-blue-500" />
+            <span>{totals.ongoing} Ongoing</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs font-medium dark:text-white">
+            <div className="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600" />
+            <span>{totals.left} Left</span>
+          </div>
+        </div>
+      </div>
 
+      {/* Units List */}
       {units.length === 0 ? (
-        <div className="surface-card ios-shadow p-4 rounded-2xl">
-          <div className="text-sm opacity-70">No data available for {subject} yet.</div>
+        <div className="bento-card p-12 flex flex-col items-center justify-center text-center space-y-4 dark:bg-[#1E1E24] dark:border dark:border-white/10">
+          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 dark:bg-white/10 dark:text-gray-500">
+            <BookOpen size={32} />
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-[#1E1E24] dark:text-white">No Data Available</h3>
+            <p className="text-[#8E8E93]">There is no progress tracking available for {subject} yet.</p>
+          </div>
+          <button onClick={() => navigate(-1)} className="text-orange-600 font-medium hover:underline dark:text-orange-400">
+            Go Back
+          </button>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-6">
           {units.map((u, idx) => (
-            <div key={idx} className="surface-card ios-shadow p-4 rounded-2xl space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="text-sm font-semibold">{u.name}</div>
-                <div className="text-xs opacity-70">Done {u.done} • Ongoing {u.ongoing} • Left {u.left}</div>
+            <div key={idx} className="bento-card p-6 space-y-6 dark:bg-[#1E1E24] dark:border dark:border-white/10">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-orange-600 font-bold dark:bg-orange-900/30 dark:text-orange-400">
+                    {idx + 1}
+                  </div>
+                  <h2 className="text-lg font-bold text-[#1E1E24] dark:text-white">{u.name}</h2>
+                </div>
+                <div className="w-full sm:w-64">
+                  <ProgressBar done={u.done} ongoing={u.ongoing} left={u.left} />
+                </div>
               </div>
-              <ProgressBar done={u.done} ongoing={u.ongoing} left={u.left} />
-              <div className="space-y-2">
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {u.lessons?.map((l, i) => (
-                  <div key={i} className="flex items-center justify-between px-3 py-2 rounded-xl bg-white/60 dark:bg-[#1C1C1E]/60 backdrop-blur-xl border border-black/10 dark:border-white/10">
-                    <div className="text-sm">{l.title}</div>
-                    <div className="flex items-center gap-3 text-xs">
-                      <span className={`${l.status === 'done' ? 'text-green-600' : l.status === 'ongoing' ? 'text-blue-600' : 'text-gray-600'} font-medium`}>{l.status}</span>
-                      {l.date && <span className="opacity-60">{l.date}</span>}
+                  <div 
+                    key={i} 
+                    className="p-4 rounded-xl border border-gray-100 bg-gray-50/50 hover:bg-white hover:shadow-md transition-all duration-200 group dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <span className="font-medium text-[#1E1E24] line-clamp-1 group-hover:text-orange-600 transition-colors dark:text-white dark:group-hover:text-orange-400">
+                        {l.title}
+                      </span>
+                      {l.status === 'done' && <CheckCircle2 size={16} className="text-green-500 shrink-0" />}
+                      {l.status === 'ongoing' && <Clock size={16} className="text-blue-500 shrink-0" />}
+                      {l.status === 'left' && <Circle size={16} className="text-gray-300 shrink-0 dark:text-gray-600" />}
+                    </div>
+                    
+                    <div className="flex items-center justify-between text-xs">
+                      <span className={`px-2 py-0.5 rounded-md font-medium capitalize
+                        ${l.status === 'done' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 
+                          l.status === 'ongoing' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 
+                          'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-400'
+                        }`}
+                      >
+                        {l.status}
+                      </span>
+                      {l.date && (
+                        <span className="text-[#8E8E93]">{new Date(l.date).toLocaleDateString()}</span>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -120,4 +175,3 @@ export default function SubjectProgress() {
     </div>
   )
 }
-

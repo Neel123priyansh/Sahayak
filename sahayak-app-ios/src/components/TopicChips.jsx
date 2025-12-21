@@ -4,18 +4,19 @@ const chips = ['Popular', 'Recommended', 'New', 'Math', 'Science', 'Geography', 
 
 export default function TopicChips({ onSelect, active }) {
   return (
-    <div className="overflow-x-auto no-scrollbar">
-      <div className="flex gap-2 w-max">
+    <div className="overflow-x-auto no-scrollbar" aria-label="Topic filters">
+      <div className="flex gap-3 w-max">
         {chips.map((c) => {
           const isActive = active === c
           return (
             <button
               key={c}
               onClick={() => onSelect?.(c)}
-              className={`px-3 py-1.5 rounded-full border text-sm transition-colors ${
+              aria-pressed={isActive}
+              className={`px-4 py-2 rounded-full text-sm sm:text-base transition-colors ios-button ${
                 isActive
-                  ? 'bg-blue-500 text-white ios-shadow border-blue-500'
-                  : 'bg-white/70 dark:bg-[#1C1C1E]/70 border-black/10 dark:border-white/10'
+                  ? 'pill pill-active ios-shadow'
+                  : 'pill bg-white/90 dark:bg-[#1C1C1E]/80 hover:bg-black/5 dark:hover:bg-white/10'
               }`}
             >
               {c}

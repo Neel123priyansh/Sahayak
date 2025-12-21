@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import ContextMenu from './ContextMenu.jsx'
 
 const defaultItems = [
   { title: 'Lesson 4: National Park Exploration', image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=600&auto=format&fit=crop' },
@@ -12,28 +13,46 @@ const defaultItems = [
 ]
 
 export default function JourneyCarousel({ items = defaultItems }) {
+  const [menu, setMenu] = useState({ open: false, x: 0, y: 0, idx: null })
   return (
     <div className="space-y-2">
       <div className="flex items-baseline justify-between">
         <h2 className="text-lg font-semibold">Continue with journey</h2>
-        <Link to="/see-more" className="text-sm opacity-70 flex items-center gap-1">See More <span>▾</span></Link>
+        <Link to="/see-more" className="text-sm opacity-70 flex items-center gap-1 hover:opacity-100">See More <span>▾</span></Link>
       </div>
       <div className="overflow-x-auto no-scrollbar">
         <div className="flex gap-3 w-max">
           {items.map((item, idx) => (
-            <div key={idx} className="w-32 sm:w-40">
+            <div
+              key={idx}
+              className="w-36 sm:w-48"
+              onContextMenu={(e) => {
+                e.preventDefault()
+                setMenu({ open: true, x: e.clientX, y: e.clientY, idx })
+              }}
+            >
               <div className="group rounded-2xl overflow-hidden ios-shadow relative">
                 <div
-                  className="h-24 sm:h-28 bg-center bg-cover transform transition-transform duration-300 group-hover:scale-[1.03]"
+                  className="h-28 sm:h-32 bg-center bg-cover transform transition-transform duration-300 group-hover:scale-[1.03]"
                   style={{ backgroundImage: `url(${item.image})` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
               </div>
-              <div className="mt-2 text-[11px] sm:text-xs opacity-90 font-medium line-clamp-2">{item.title}</div>
+              <div className="mt-2 text-xs sm:text-sm opacity-90 font-medium line-clamp-2" title={item.title}>{item.title}</div>
             </div>
           ))}
         </div>
       </div>
+      <ContextMenu
+        open={menu.open}
+        x={menu.x}
+        y={menu.y}
+        onClose={() => setMenu({ open: false, x: 0, y: 0, idx: null })}
+        actions={[
+          { label: 'Open', onClick: () => setMenu({ open: false, x: 0, y: 0, idx: null }) },
+          { label: 'Add to favorites', onClick: () => setMenu({ open: false, x: 0, y: 0, idx: null }) },
+        ]}
+      />
     </div>
   )
 }

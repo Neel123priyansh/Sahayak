@@ -3,11 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sahayak iOS App</title>
+    <title>Sahayak - AI Teaching Assistant</title>
+    <meta name="description" content="Sahayak: Simplifying learning and amplifying growth. Explore journeys, track progress, and study with AI assistance." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="canonical" href="http://localhost:5173/" />
+    <meta property="og:title" content="Sahayak - AI Teaching Assistant" />
+    <meta property="og:description" content="Simplifying learning, amplifying growth. Explore journeys and track progress." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://localhost:5173/" />
+    <meta property="og:image" content="/vite.svg" />
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function() {
+        try {
+          const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+          document.documentElement.classList.toggle('safari', isSafari)
+        } catch {}
+      })()
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
   </html>
-

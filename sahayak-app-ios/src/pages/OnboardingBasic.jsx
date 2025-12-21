@@ -23,32 +23,80 @@ export default function OnboardingBasic({ onNext }) {
 
   return (
     <div className="space-y-6" role="form" aria-label="Basic Details">
-      <h1 className="text-2xl font-semibold">Welcome! Tell us about you</h1>
-      <div className="surface-card ios-shadow rounded-2xl p-6 space-y-4">
-        <label className="block">
-          <span className="text-sm opacity-70">Teacher Name</span>
-          <input aria-required type="text" minLength={3} value={name} onChange={e=>setName(e.target.value)} className="mt-1 w-full px-3 py-2 rounded-xl border border-black/10 dark:border-white/20 bg-white/70 dark:bg-[#1C1C1E]/70" />
-          {name && name.trim().length < 3 && (<p className="text-red-600 text-sm mt-1">Minimum 3 characters</p>)}
-        </label>
-        <label className="block">
-          <span className="text-sm opacity-70">Teacher ID</span>
-          <input aria-required type="text" value={teacherId} onChange={e=>setTeacherId(e.target.value)} className="mt-1 w-full px-3 py-2 rounded-xl border border-black/10 dark:border-white/20 bg-white/70 dark:bg-[#1C1C1E]/70" />
-          {teacherId && !/^\d+$/.test(teacherId) && (<p className="text-red-600 text-sm mt-1">ID must be numeric</p>)}
-        </label>
-        <div className="grid grid-cols-1 gap-3">
-          <label className="block">
-            <span className="text-sm opacity-70">State</span>
-            <input aria-label="Search states" placeholder="Search…" value={query} onChange={e=>setQuery(e.target.value)} className="mt-1 w-full px-3 py-2 rounded-xl border border-black/10 dark:border-white/20 bg-white/60 dark:bg-[#1C1C1E]/60" />
-          </label>
-          <div role="listbox" aria-label="Select state" className="max-h-52 overflow-auto surface-card rounded-xl p-2">
-            {filtered.sort().map(s => (
-              <button key={s} aria-selected={state===s} onClick={()=>setState(s)} className={`w-full text-left px-3 py-2 rounded-lg ${state===s ? 'bg-blue-500 text-white ios-shadow' : 'hover:bg-black/5 dark:hover:bg-white/5'}`}>{s}</button>
-            ))}
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-[#1E1E24] dark:text-white">Welcome! Tell us about you</h1>
+      </div>
+
+      <div className="bento-card p-8 space-y-6 dark:bg-[#1E1E24] dark:border dark:border-white/10">
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-[#8E8E93]">Teacher Name</label>
+          <input 
+            aria-required 
+            type="text" 
+            minLength={3} 
+            value={name} 
+            onChange={e=>setName(e.target.value)} 
+            className="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all text-[#1E1E24] dark:bg-white/5 dark:border-white/10 dark:text-white"
+            placeholder="Enter your full name"
+          />
+          {name && name.trim().length < 3 && (<p className="text-red-500 text-sm">Minimum 3 characters</p>)}
+        </div>
+
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-[#8E8E93]">Teacher ID</label>
+          <input 
+            aria-required 
+            type="text" 
+            value={teacherId} 
+            onChange={e=>setTeacherId(e.target.value)} 
+            className="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all text-[#1E1E24] dark:bg-white/5 dark:border-white/10 dark:text-white"
+            placeholder="Enter your numeric ID"
+          />
+          {teacherId && !/^\d+$/.test(teacherId) && (<p className="text-red-500 text-sm">ID must be numeric</p>)}
+        </div>
+
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-[#8E8E93]">State</label>
+          <input 
+            aria-label="Search states" 
+            placeholder="Search state..." 
+            value={query} 
+            onChange={e=>setQuery(e.target.value)} 
+            className="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all text-[#1E1E24] dark:bg-white/5 dark:border-white/10 dark:text-white"
+          />
+          <div role="listbox" aria-label="Select state" className="max-h-48 overflow-auto rounded-xl border border-gray-100 bg-white p-2 dark:bg-[#2C2C32] dark:border-white/10">
+            {filtered.length > 0 ? filtered.sort().map(s => (
+              <button 
+                key={s} 
+                aria-selected={state===s} 
+                onClick={()=>setState(s)} 
+                className={`w-full text-left px-4 py-2.5 rounded-lg text-sm transition-colors ${
+                  state===s 
+                    ? 'bg-[#1E1E24] text-white dark:bg-white dark:text-[#1E1E24]' 
+                    : 'text-[#1E1E24] hover:bg-gray-50 dark:text-white dark:hover:bg-white/5'
+                }`}
+              >
+                {s}
+              </button>
+            )) : (
+              <p className="text-sm text-[#8E8E93] p-2 text-center">No states found</p>
+            )}
           </div>
         </div>
-      </div>
-      <div className="flex justify-end">
-        <button disabled={!isValid} onClick={continueNext} className={`px-4 py-2 rounded-xl ${isValid ? 'bg-blue-500 text-white ios-button ios-shadow' : 'bg-black/10 dark:bg-white/10 cursor-not-allowed'}`}>Continue</button>
+
+        <div className="pt-4 flex justify-end">
+          <button 
+            disabled={!isValid} 
+            onClick={continueNext} 
+            className={`px-6 py-3 rounded-xl font-bold transition-all ${
+              isValid 
+                ? 'bg-[#1E1E24] text-white hover:bg-black hover:scale-[1.02] shadow-lg dark:bg-white dark:text-[#1E1E24]' 
+                : 'bg-gray-100 text-gray-400 cursor-not-allowed dark:bg-white/5 dark:text-white/20'
+            }`}
+          >
+            Continue
+          </button>
+        </div>
       </div>
     </div>
   )
