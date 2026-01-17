@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 
 const StudentDashboard = () => {
-  const { user } = useApp();
+  const { user, visualMode, toggleVisualMode } = useApp();
   const navigate = useNavigate();
 
   const subjects = [
@@ -27,13 +27,29 @@ const StudentDashboard = () => {
               animate={{ opacity: 1, y: 0 }}
               className="bg-brand-green rounded-3xl p-8 text-white relative overflow-hidden"
             >
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute -top-24 -left-16 w-40 h-40 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-brand-yellow to-pink-400 opacity-60 blur-3xl mix-blend-screen motion-safe:animate-float-blobs" />
+                <div className="absolute -bottom-24 -right-10 w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-to-tr from-sky-400 to-brand-green-light opacity-50 blur-3xl mix-blend-screen motion-safe:animate-float-blobs-slow" />
+              </div>
               <div className="relative z-10">
-                <h1 className="text-3xl font-display font-bold mb-2">
-                  Welcome back, {user.name}! 👋
-                </h1>
-                <p className="opacity-90">
-                  You have 3 pending assignments today. Let's keep the streak going!
-                </p>
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div>
+                    <h1 className="text-3xl font-display font-bold mb-2">
+                      Welcome back, {user.name}! 👋
+                    </h1>
+                    <p className="opacity-90">
+                      You have 3 pending assignments today. Let's keep the streak going!
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={toggleVisualMode}
+                    className="inline-flex items-center self-start md:self-auto px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-semibold tracking-wide border border-white/20 backdrop-blur-sm transition-colors"
+                  >
+                    <span className="w-2 h-2 rounded-full mr-2 bg-brand-yellow" />
+                    {visualMode === 'playful' ? 'Playful mode' : 'Calm mode'}
+                  </button>
+                </div>
 
                 <div className="flex items-center space-x-6 mt-6">
                   <div className="flex flex-col">
@@ -59,7 +75,11 @@ const StudentDashboard = () => {
               </div>
             </motion.div>
 
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 }}
+            >
               <h2 className="text-xl font-bold text-brand-dark mb-4 flex items-center">
                 <BookOpen className="mr-2 text-brand-green" /> Your Learning Path
               </h2>
@@ -89,9 +109,13 @@ const StudentDashboard = () => {
                   </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
               <h2 className="text-xl font-bold text-brand-dark mb-4 flex items-center">
                 <Target className="mr-2 text-brand-yellow" /> Daily Missions
               </h2>
@@ -113,16 +137,24 @@ const StudentDashboard = () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
 
           <div className="w-full md:w-96 space-y-8">
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+            >
               <h2 className="text-xl font-bold text-brand-dark mb-4">Ask Shayak</h2>
               <AIChat compact />
-            </div>
+            </motion.div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.05 }}
+              className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"
+            >
               <h3 className="font-bold text-lg mb-4 flex items-center">
                 <Trophy className="mr-2 text-brand-yellow" /> Achievements
               </h3>
@@ -137,7 +169,7 @@ const StudentDashboard = () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -146,4 +178,3 @@ const StudentDashboard = () => {
 };
 
 export default StudentDashboard;
-

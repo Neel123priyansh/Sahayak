@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import Button from './Button';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const navLinks = [
     { name: 'About Us', path: '/about' },
@@ -23,15 +24,25 @@ const Navbar = () => {
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className="font-medium hover:text-brand-yellow transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = location.pathname.startsWith(link.path);
+              return (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className={`relative font-medium text-sm tracking-wide transition-colors ${
+                    isActive ? 'text-brand-yellow' : 'text-white/90 hover:text-brand-yellow'
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  <span
+                    className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-brand-yellow transition-all duration-300 ${
+                      isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'
+                    }`}
+                  />
+                </Link>
+              );
+            })}
             <Button
               variant="primary"
               className="px-6 py-2 text-sm"
@@ -80,4 +91,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

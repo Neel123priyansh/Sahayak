@@ -16,6 +16,11 @@ export const AppProvider = ({ children }) => {
   // Global Data State
   const [notifications, setNotifications] = useState([]);
 
+  // Visual Preferences
+  const [visualMode, setVisualMode] = useState(
+    localStorage.getItem('visualMode') || 'playful'
+  );
+
   // Persist User Data
   useEffect(() => {
     localStorage.setItem('userName', user.name);
@@ -25,6 +30,11 @@ export const AppProvider = ({ children }) => {
     localStorage.setItem('userStreak', user.streak);
     localStorage.setItem('userCoins', user.coins);
   }, [user]);
+
+  // Persist Visual Preferences
+  useEffect(() => {
+    localStorage.setItem('visualMode', visualMode);
+  }, [visualMode]);
 
   // Actions
   const login = (name, type) => {
@@ -63,6 +73,10 @@ export const AppProvider = ({ children }) => {
     }, 3000);
   };
 
+  const toggleVisualMode = () => {
+    setVisualMode(prev => (prev === 'playful' ? 'calm' : 'playful'));
+  };
+
   const value = {
     user,
     login,
@@ -70,7 +84,9 @@ export const AppProvider = ({ children }) => {
     addXp,
     addCoins,
     notifications,
-    addNotification
+    addNotification,
+    visualMode,
+    toggleVisualMode
   };
 
   return (

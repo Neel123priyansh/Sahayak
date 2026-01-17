@@ -7,7 +7,7 @@ const Button = ({
   className, 
   ...props 
 }) => {
-  const baseStyles = "inline-flex items-center justify-center px-6 py-3 rounded-full font-bold transition-all transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2";
+  const baseStyles = "inline-flex items-center justify-center px-6 py-3 rounded-full font-bold transition-all transform hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-green";
   
   const variants = {
     primary: "bg-brand-yellow text-brand-dark hover:bg-brand-yellow-hover shadow-lg shadow-brand-yellow/30",

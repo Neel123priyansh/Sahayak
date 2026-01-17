@@ -44,13 +44,19 @@ const AIChat = ({ compact = false }) => {
   return (
     <div className={`flex flex-col bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden ${compact ? 'h-[400px]' : 'h-[600px]'}`}>
       {/* Header */}
-      <div className="bg-brand-green p-4 flex items-center space-x-3 text-white">
-        <div className="p-2 bg-white/20 rounded-full">
+      <div className="bg-gradient-to-r from-brand-green to-emerald-500 p-4 flex items-center space-x-3 text-white">
+        <div className="p-2 bg-white/15 rounded-full shadow-sm">
           <Sparkles size={20} className="text-brand-yellow" />
         </div>
         <div>
-          <h3 className="font-bold">Shayak AI</h3>
-          <p className="text-xs text-brand-green-bg opacity-90">Always here to help</p>
+          <h3 className="font-bold flex items-center space-x-1">
+            <span>Shayak AI</span>
+            <span className="inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/10 border border-white/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 mr-1.5" />
+              <span className="uppercase tracking-wide">Live</span>
+            </span>
+          </h3>
+          <p className="text-xs text-brand-green-bg/90">Always here to help</p>
         </div>
       </div>
 
